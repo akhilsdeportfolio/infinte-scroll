@@ -1,0 +1,9 @@
+.scroll{
+  height: 100vh;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+img{
+  border-radius: 10px;
+}
