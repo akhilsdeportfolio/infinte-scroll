@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect,useState } from 'react';
-import {Box,Stack} from '@mui/material';
+import {Box,debounce,Stack} from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
 
 
@@ -31,6 +31,28 @@ function App() {
   }
 
 
+  function debounce(func)
+  {
+    let timerId;
+
+    return function(...args)
+    {
+      let context=this;
+
+      if(timerId)
+        clearTimeout(timerId);
+      timerId=setTimeout(()=>{
+        func.apply(context,args);
+      },800)
+
+
+    }
+  }
+
+
+  let improvised = debounce(getData);
+
+
 
   
 
@@ -40,7 +62,8 @@ function App() {
   
   useEffect(()=>{
 
-    getData(1,5);
+    //getData(1,5);
+    improvised(1,30)
     window.addEventListener('scroll',(e)=>{
       //console.log("results length",results.length);
       let userScrollHeight = window.innerHeight + window.scrollY;
@@ -49,7 +72,8 @@ function App() {
         //console.log("new page",page);
         page++;
         console.log(page);
-        getData(page,30)
+        //getData(page,30)
+        improvised(page,30)
       }
     },{passive:false});
   },[page]);
